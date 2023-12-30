@@ -7,12 +7,13 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
+node_modules/
 dist
 dist-ssr
 *.local
 
 frontend/node_modules
+backend/node_modules
 
 CRUD-MERN/
 CRUD-MERN.zip
