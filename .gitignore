@@ -12,7 +12,9 @@ dist
 dist-ssr
 *.local
 
-CRUD-MERN
+frontend/node_modules
+
+CRUD-MERN/
 CRUD-MERN.zip
 
 # Editor directories and files
