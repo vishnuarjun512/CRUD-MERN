@@ -40,6 +40,7 @@ export const loginUser = async (req, res, err) => {
     const checkUser = await User.findOne({ $or: [{ username }, { email }] });
     if (checkUser) {
       const checkPassword = bcryptjs.compareSync(password, checkUser.password);
+
       if (checkPassword) {
         const { password, ...rest } = checkUser._doc;
         const token = jwt.sign(
@@ -59,9 +60,9 @@ export const loginUser = async (req, res, err) => {
           .status(201)
           .json({ error: true, message: "Credentials dont match" });
       }
+    } else {
+      res.status(201).json({ error: true, message: "User not found" });
     }
-
-    res.status(201).json({ error: true, message: "User not found" });
   } catch (error) {
     console.log(error);
     res.status(201).json({ error: true, message: "Internal Server Error" });
@@ -71,8 +72,8 @@ export const loginUser = async (req, res, err) => {
 export const registerUser = async (req, res, err) => {
   try {
     const { username, email, password, mobile, profilePic } = req.body;
-    console.log(username, email, password, mobile, profilePic);
     const data = await User.findOne({ $or: [{ email }, { username }] });
+
     if (data) {
       return res
         .status(201)
@@ -84,14 +85,17 @@ export const registerUser = async (req, res, err) => {
       username,
       password: hashedPassword,
       mobile,
-      profilePic,
     });
+    if (profilePic !== undefined) {
+      newUser.profilePic = profilePic;
+    }
     const savedUser = await newUser.save();
-    console.log("saved user", savedUser);
-    res.status(200).json({ error: false, message: "Register Success" });
+    return res.status(200).json({ error: false, message: "Register Success" });
   } catch (error) {
     console.log(error);
-    res.status(201).json({ error: true, message: "Internal Server Error" });
+    return res
+      .status(201)
+      .json({ error: true, message: "Internal Server Error" });
   }
 };
 

@@ -149,7 +149,6 @@ const Auth = () => {
         if (res.status == 200) {
           toast.success(login ? "Login Success" : "Register Success");
           if (login) {
-            setForm(initialForm);
             const user = res.data.user;
             dispatch(
               setUser({
@@ -160,7 +159,7 @@ const Auth = () => {
             );
           } else {
           }
-
+          setForm(initialForm);
           setTimeout(() => {
             navigate(
               login ? (res.data.user.isAdmin ? "/admin" : "/dashboard") : "/"
