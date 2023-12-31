@@ -203,6 +203,7 @@ const Auth = () => {
             className="mt-5 w-[70%] flex flex-col items-center justify-center gap-3 p-3 "
           >
             <input
+              data-cy="login-username"
               type="text"
               className="bg-gray-200 p-4 rounded-lg outline-none w-full focus:scale-[1.1] transition-all duration-300 ease-in-out"
               placeholder="Email/Username"
@@ -216,6 +217,7 @@ const Auth = () => {
               value={form.username || form.email}
             />
             <input
+              data-cy="login-password"
               value={form.password}
               type="password"
               className="bg-gray-200 p-4 rounded-lg outline-none w-full focus:scale-[1.1] transition-all duration-300 ease-in-out"
@@ -224,7 +226,10 @@ const Auth = () => {
                 setForm({ ...form, password: e.target.value });
               }}
             />
-            <button className="bg-[#512da8] text-white font-semibold uppercase hover:scale-105 p-3 rounded-2xl cursor-pointer">
+            <button
+              data-cy="login-button"
+              className="bg-[#512da8] text-white font-semibold uppercase hover:scale-105 p-3 rounded-2xl cursor-pointer"
+            >
               <span className={`${loading ? "opacity-50" : ""}`}>
                 {loading ? "Logging in ... " : "Login"}
               </span>
@@ -353,7 +358,10 @@ const Auth = () => {
                 }}
               />
             </div>
-            <button className="bg-[#512da8] text-white font-semibold uppercase hover:scale-105 p-3 rounded-2xl cursor-pointer">
+            <button
+              data-cy="register-button"
+              className="bg-[#512da8] text-white font-semibold uppercase hover:scale-105 p-3 rounded-2xl cursor-pointer"
+            >
               <span className={`${loading ? "opacity-50" : ""}`}>
                 {loading ? "Signing Up ... " : "Register"}
               </span>
@@ -389,6 +397,7 @@ const Auth = () => {
             : "Enter your personal details to use all of the site features"}
         </p>
         <button
+          data-cy="login-register-switch"
           onClick={() => {
             setLogin(!login);
             setForm(initialForm);
